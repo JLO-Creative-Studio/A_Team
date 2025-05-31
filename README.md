@@ -112,4 +112,105 @@ graph TB
 [To be added]
 
 ## License
-[To be added] 
+[To be added]
+
+## Development Workflow
+### Branch Strategy
+- `main` branch: Production-ready code
+- `develop` branch: Development and testing
+- Feature branches: Created from `develop` for new features/fixes
+
+### CI/CD Pipeline
+1. **Development Flow**:
+   - Work happens on `develop` branch
+   - CI runs on every push and PR
+   - Tests and builds must pass
+   - Environment: ATX_Dev
+
+2. **Production Flow**:
+   - Code moves to `main` via PR
+   - Stricter checks on `main`
+   - Environment: ATX_Deploy
+
+### Testing the Workflow
+1. **Local Development**:
+   ```bash
+   # Create feature branch
+   git checkout -b feature/test-workflow
+   
+   # Make changes
+   # Test locally
+   # Commit changes
+   git add .
+   git commit -m "test: workflow testing"
+   
+   # Push to remote
+   git push origin feature/test-workflow
+   ```
+
+2. **CI Checks**:
+   - Linting
+   - Testing
+   - Building
+   - Environment-specific rules
+
+3. **Deployment**:
+   - Develop branch: Development environment
+   - Main branch: Production environment 
+
+## Onboarding & Setup Instructions
+
+### 1. Prerequisites
+- **Node.js**: v20 or higher (includes Corepack by default)
+- **Git**: for version control
+
+### 2. Clone the Repository
+```bash
+git clone https://github.com/JLO-Creative-Studio/A_Team.git
+cd A_Team
+```
+
+### 3. Enable Corepack (Yarn 4+)
+Corepack is included with Node.js 16.9+ and is required for Yarn 4+ monorepos.
+```bash
+corepack enable
+```
+
+### 4. Install Dependencies
+Run this from the project root:
+```bash
+yarn install
+```
+This will:
+- Install all dependencies for the monorepo and workspaces
+- Generate a `yarn.lock` file (if not present)
+- Set up the `.yarn/` directory for Yarn 4 config
+
+### 5. Commit Lockfile and Yarn Config
+Always commit `yarn.lock` and the `.yarn/` directory to version control:
+```bash
+git add yarn.lock .yarn
+```
+
+### 6. Running Scripts
+- **Development:**
+  ```bash
+  yarn dev
+  ```
+- **Build:**
+  ```bash
+  yarn build
+  ```
+- **Lint:**
+  ```bash
+  yarn lint
+  ```
+- **Test:**
+  ```bash
+  yarn test
+  ```
+
+### 7. CI/CD
+- All pushes and PRs to `develop` and `main` branches trigger the CI workflow
+- The workflow requires a valid `yarn.lock` and `.yarn` config
+- See the "Development Workflow" section below for more details 

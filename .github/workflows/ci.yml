@@ -19,21 +19,24 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
+        cache: 'yarn'
+    
+    - name: Enable Corepack (Yarn 4)
+      run: corepack enable
     
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --immutable
     
     - name: Run linting
-      run: npm run lint
+      run: yarn lint
       continue-on-error: ${{ github.ref != 'refs/heads/main' }}
     
     - name: Run tests
-      run: npm run test
+      run: yarn test
       continue-on-error: ${{ github.ref != 'refs/heads/main' }}
     
     - name: Build
-      run: npm run build
+      run: yarn build
       continue-on-error: ${{ github.ref != 'refs/heads/main' }}
     
     - name: Check for errors

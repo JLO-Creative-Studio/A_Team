@@ -112,4 +112,48 @@ graph TB
 [To be added]
 
 ## License
-[To be added] 
+[To be added]
+
+## Development Workflow
+### Branch Strategy
+- `main` branch: Production-ready code
+- `develop` branch: Development and testing
+- Feature branches: Created from `develop` for new features/fixes
+
+### CI/CD Pipeline
+1. **Development Flow**:
+   - Work happens on `develop` branch
+   - CI runs on every push and PR
+   - Tests and builds must pass
+   - Environment: ATX_Dev
+
+2. **Production Flow**:
+   - Code moves to `main` via PR
+   - Stricter checks on `main`
+   - Environment: ATX_Deploy
+
+### Testing the Workflow
+1. **Local Development**:
+   ```bash
+   # Create feature branch
+   git checkout -b feature/test-workflow
+   
+   # Make changes
+   # Test locally
+   # Commit changes
+   git add .
+   git commit -m "test: workflow testing"
+   
+   # Push to remote
+   git push origin feature/test-workflow
+   ```
+
+2. **CI Checks**:
+   - Linting
+   - Testing
+   - Building
+   - Environment-specific rules
+
+3. **Deployment**:
+   - Develop branch: Development environment
+   - Main branch: Production environment 

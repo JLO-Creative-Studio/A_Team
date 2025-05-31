@@ -157,3 +157,60 @@ graph TB
 3. **Deployment**:
    - Develop branch: Development environment
    - Main branch: Production environment 
+
+## Onboarding & Setup Instructions
+
+### 1. Prerequisites
+- **Node.js**: v20 or higher (includes Corepack by default)
+- **Git**: for version control
+
+### 2. Clone the Repository
+```bash
+git clone https://github.com/JLO-Creative-Studio/A_Team.git
+cd A_Team
+```
+
+### 3. Enable Corepack (Yarn 4+)
+Corepack is included with Node.js 16.9+ and is required for Yarn 4+ monorepos.
+```bash
+corepack enable
+```
+
+### 4. Install Dependencies
+Run this from the project root:
+```bash
+yarn install
+```
+This will:
+- Install all dependencies for the monorepo and workspaces
+- Generate a `yarn.lock` file (if not present)
+- Set up the `.yarn/` directory for Yarn 4 config
+
+### 5. Commit Lockfile and Yarn Config
+Always commit `yarn.lock` and the `.yarn/` directory to version control:
+```bash
+git add yarn.lock .yarn
+```
+
+### 6. Running Scripts
+- **Development:**
+  ```bash
+  yarn dev
+  ```
+- **Build:**
+  ```bash
+  yarn build
+  ```
+- **Lint:**
+  ```bash
+  yarn lint
+  ```
+- **Test:**
+  ```bash
+  yarn test
+  ```
+
+### 7. CI/CD
+- All pushes and PRs to `develop` and `main` branches trigger the CI workflow
+- The workflow requires a valid `yarn.lock` and `.yarn` config
+- See the "Development Workflow" section below for more details 

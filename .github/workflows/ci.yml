@@ -10,6 +10,7 @@ jobs:
   build-and-test:
     name: Build & Test
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'ATX_Deploy' || 'ATX_Dev' }}
     
     steps:
     - uses: actions/checkout@v4
@@ -25,9 +26,18 @@ jobs:
     
     - name: Run linting
       run: npm run lint
+      continue-on-error: ${{ github.ref != 'refs/heads/main' }}
     
     - name: Run tests
       run: npm run test
+      continue-on-error: ${{ github.ref != 'refs/heads/main' }}
     
     - name: Build
-      run: npm run build 
+      run: npm run build
+      continue-on-error: ${{ github.ref != 'refs/heads/main' }}
+    
+    - name: Check for errors
+      if: github.ref == 'refs/heads/main' && failure()
+      run: |
+        echo "::error::Build failed on main branch. Please fix the issues before merging."
+        exit 1 

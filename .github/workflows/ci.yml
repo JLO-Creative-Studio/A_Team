@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Test & Lint
     runs-on: ubuntu-latest
     
     steps:
@@ -29,6 +30,7 @@ jobs:
       run: npm run test
 
   build:
+    name: Build
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
